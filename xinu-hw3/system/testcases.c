@@ -36,25 +36,23 @@ void testcases(void)
     switch (c)
     {
         case 'a':
-            kprintf("AYE PAPI MY LITTLE ASSHOLE IS SO FUCKING BIG RIGHT NOW! LOS MEMOS\n");
+            kprintf("Hello this is the result to selecting test case a.\n");
             break;
+
         case 'b':
-            kprintf("LOS MEMOS IM GETTING SMASHED RIGHT NOW!");
+            kprintf("Hello this is the result to selecting test case b.\n");
             break;
+
         case 'c':
-            //kungetc(x);
-            //kprintf("%c",'h');
-            //kprintf("%d",'H');
             kungetc('a');
             kungetc('b');
-            kungetc('t');
+            kungetc('c');
 
             kprintf("%c",kgetc());
             kprintf("%c",kgetc());
             kprintf("%c",kgetc());
-
-
             break;
+
         case 'd':
 
             kungetc('N');
@@ -87,7 +85,6 @@ void testcases(void)
         default:
             kprintf("Hello Xinu World!\r\n");
     }
-
 
     kprintf("\r\n===TEST END===\r\n");
     return;

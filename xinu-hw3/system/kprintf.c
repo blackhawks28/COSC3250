@@ -40,15 +40,15 @@ syscall kgetc(void)
         if(ungetArray[i] != NULL){
             int c = (int)ungetArray[i];
             ungetArray[i] = NULL;
-            //kprintf(c);
+
             return c;
         }
-        //i++
+
         i--;
     }
 
     int x = (int)regptr->dr;
-    //kprintf(x);
+
     return x;
 
 
@@ -91,22 +91,7 @@ syscall kungetc(unsigned char c)
 {
     // TODO: Check for room in unget buffer, put the character in or discard.
     int i = 0;
-    //int j = 0;
-    /*while(j < 10){
-        kprintf(ungetArray[j]);
-        j++;
-    }*/
-    /*kcheckc();
-    if(i >= 10){
-        kprintf("i is larger than 10 which isn't allowed");
 
-    }
-    else{
-        i++;
-        ungetArray[i] = c;
-        //kprintf((unsigned char)ungetArray[i]);
-        return c;
-    }*/
     while(i < 10){
 
         if(ungetArray[i] == NULL){
@@ -114,12 +99,11 @@ syscall kungetc(unsigned char c)
             ungetArray[i] = c;
 
             i++;
-            //kprintf(c);
+
             return c;
         }
         i++;
     }
-    //return c;
 
     return SYSERR;
 }
