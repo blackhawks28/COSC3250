@@ -8,7 +8,8 @@
 
 #define UNGETMAX 10             /* Can un-get at most 10 characters. */
 
-static unsigned char ungetArray[UNGETMAX];
+
+static unsigned char ungetArray[UNGETMAX] = {NULL};
 
 /**
  * Synchronously read a character from a UART.  This blocks until a character is
@@ -25,9 +26,30 @@ syscall kgetc(void)
     /* Pointer to the UART control and status registers.  */
     regptr = (struct pl011_uart_csreg *)0x3F201000;
 
-    // TODO: First, check the unget buffer for a character.
+    // TODO: First, check the unget buffer for a character. (kcheckc)
     //       Otherwise, check UART flags register, and
     //       once the receiver is not empty, get character c.
+    int ava = kcheckc();
+
+    while(ava == 0){//waiting for input once k puts c in kputsc()
+        ava = kcheckc();
+    }
+
+    int i = 0;
+    while(i < 10){
+        if(ungetArray[i] != NULL){
+            int c = (int)ungetArray[i];
+            ungetArray[i] = NULL;
+
+            return c;
+        }
+        i++;
+    }
+
+    int x = (int)regptr->dr;
+
+    return x;
+
 
     return SYSERR;
 }
@@ -42,8 +64,19 @@ syscall kcheckc(void)
     regptr = (struct pl011_uart_csreg *)0x3F201000;
 
     // TODO: Check the unget buffer and the UART for characters.
-	
-	
+    int i = 0;
+    while(i < 10){
+        if(ungetArray[i] != NULL){
+            return TRUE;
+        }
+        i++;
+    }
+    if(regptr->fr & (PL011_FR_RXFE)){
+        return FALSE;
+    }
+    else{
+        return TRUE;
+    }
 
     return SYSERR;
 }
@@ -56,8 +89,45 @@ syscall kcheckc(void)
 syscall kungetc(unsigned char c)
 {
     // TODO: Check for room in unget buffer, put the character in or discard.
-	
+    int i = 0;
+    int j = 0;
+    /*while(j < 10){
+        kprintf(ungetArray[j]);
+        j++;
+    }*/
+    kcheckc();
+    if(i >= 10){
+        kprintf("i is larger than 10 which isn't allowed");
+        return SYSERR;
+    }
+    else{
+        i++;
+        ungetArray[i] = c;
+        //kprintf((unsigned char)ungetArray[i]);
+        return c;
+    }
+    /*while(i < 10){
+        //kprintf("penis");
+        if(ungetArray[i] == NULL){
+            //kprintf(ungetArray[i]);
+            //c = (char)ungetArray[i];
+            ungetArray[i] = c;
+            //kprintf("\n");
+            //kprintf(ungetArray[i]);
+            i++;
+            //kprintf(c);
+            return c;
 
+        }
+        i++;
+        else{//originally wasnt here
+            ungetArray[i] = NULL;
+            i++;
+            return c;
+        }
+    }
+    //return c;
+    */
     return SYSERR;
 }
 
@@ -82,12 +152,12 @@ syscall kputc(uchar c)
 
     // TODO: Check UART flags register.
     //       Once the Transmitter FIFO is not full, send character c.
-	
-	while(regptr(PL011_FR_RXFF)){
-		PL011_REGS_BAS7
-		
-	}
-	
+
+
+    while(regptr->fr & (PL011_FR_TXFF));
+    regptr->dr = c;
+    return (int)c;
+
 
     return SYSERR;
 }

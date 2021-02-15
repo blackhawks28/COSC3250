@@ -24,21 +24,47 @@ devcall putc(int dev, char c)
  */
 void testcases(void)
 {
+
     int c;
 
     kprintf("===TEST BEGIN===\r\n");
 
     c = kgetc();
+
+    unsigned char x;
+
     switch (c)
     {
+        case 'a':
+            kprintf("AYE PAPI MY LITTLE ASSHOLE IS SO FUCKING BIG RIGHT NOW! LOS MEMOS\n");
+            break;
+        case 'b':
+            kprintf("LOS MEMOS IM GETTING SMASHED RIGHT NOW!");
+            break;
+        case 'c':
+            //kungetc(x);
+            //kprintf("%c",'h');
+            //kprintf("%d",'H');
+            kungetc('a');
+            kungetc('b');
+            kungetc('c');
+            kungetc('d');
+            kungetc('e');
+            kungetc('f');
+            kungetc('g');
+            kungetc('h');
+            kungetc('i');
+            kungetc('j');
+            kungetc('k');
+            break;
+            // TODO: Test your operating system!
 
-        // TODO: Test your operating system!
-
-    default:
-        kprintf("Hello Xinu World!\r\n");
+        default:
+            kprintf("Hello Xinu World!\r\n");
     }
 
 
     kprintf("\r\n===TEST END===\r\n");
     return;
+
 }
