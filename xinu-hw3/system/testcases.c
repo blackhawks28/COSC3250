@@ -31,7 +31,7 @@ void testcases(void)
 
     c = kgetc();
 
-    unsigned char x;
+
 
     switch (c)
     {
@@ -47,18 +47,43 @@ void testcases(void)
             //kprintf("%d",'H');
             kungetc('a');
             kungetc('b');
-            kungetc('c');
-            kungetc('d');
-            kungetc('e');
-            kungetc('f');
-            kungetc('g');
-            kungetc('h');
-            kungetc('i');
-            kungetc('j');
-            kungetc('k');
-            break;
-            // TODO: Test your operating system!
+            kungetc('t');
 
+            kprintf("%c",kgetc());
+            kprintf("%c",kgetc());
+            kprintf("%c",kgetc());
+
+
+            break;
+        case 'd':
+
+            kungetc('N');
+            kungetc('O');
+            kungetc('D');
+            kungetc('E');
+            kungetc('P');
+            kungetc('P');
+            kungetc('A');
+            kungetc('L');
+            kungetc('C');
+            kungetc('T');
+            kungetc('E');
+            kungetc('G');
+
+            kprintf("%c",kgetc());
+            kprintf("%c",kgetc());
+            kprintf("%c",kgetc());
+            kprintf("%c",kgetc());
+            kprintf("%c",kgetc());
+            kprintf("%c",kgetc());
+            kprintf("%c",kgetc());
+            kprintf("%c",kgetc());
+            kprintf("%c",kgetc());
+            kprintf("%c",kgetc());
+            kprintf("%c",kgetc());
+            kprintf("%c",kgetc());
+            // TODO: Test your operating system!
+            break;
         default:
             kprintf("Hello Xinu World!\r\n");
     }
@@ -66,5 +91,4 @@ void testcases(void)
 
     kprintf("\r\n===TEST END===\r\n");
     return;
-
 }
