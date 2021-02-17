@@ -1,5 +1,11 @@
 /**
  * @file kprintf.c
+ * COSC 3250 - Project 3
+ *
+ *@author[Chris Piszczek & Dennis Burmeister]
+ *Instructor[Dr. Rubya]
+ *TA-BOT:MAILTO[christian.piszczek@marquette.edu]
+ *
  */
 
 /* Embedded Xinu, Copyright (C) 2009, 2013.  All rights reserved. */
@@ -35,8 +41,8 @@ syscall kgetc(void)
         ava = kcheckc();
     }
 
-    int i = 9;
-    while(i >= 0){//i < 10
+    int i = 9;//9
+    while(i >= 0){
         if(ungetArray[i] != NULL){
             int c = (int)ungetArray[i];
             ungetArray[i] = NULL;
@@ -102,6 +108,7 @@ syscall kungetc(unsigned char c)
 
             return c;
         }
+
         i++;
     }
 
